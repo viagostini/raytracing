@@ -16,11 +16,11 @@ Tuple Vector(float x, float y, float z) {
     return Tuple(x, y, z, 0.0);
 }
 
-bool Tuple::isPoint() {
+bool Tuple::isPoint() const {
     return almost_equal(w, 1.0);
 }
 
-bool Tuple::isVector() {
+bool Tuple::isVector() const {
     return almost_equal(w, 0.0);
 }
 
@@ -62,16 +62,43 @@ bool Tuple::operator==(const Tuple &other) const {
         && almost_equal(w, other.w);
 }
 
-float Tuple::magnitude() {
+float Tuple::magnitude() const {
     // TODO: possible optimization later on: use squared length for comparisons
     return sqrt(x*x + y*y + z*z);
 }
 
-Tuple Tuple::normalize() {
+void Tuple::normalize() {
+    float mag = magnitude();
+
+    if (almost_equal(mag, 0))
+        throw std::overflow_error("Normalizing vector with magnitude zero causes division by zero.");
+
+    x /= mag, y /= mag, z /= mag;
+}
+
+Tuple Tuple::normalized() const {
     float mag = magnitude();
 
     if (almost_equal(mag, 0))
         throw std::overflow_error("Normalizing vector with magnitude zero causes division by zero.");
 
     return { x / mag, y / mag, z / mag, w };
+}
+
+float Tuple::dot(const Tuple &other) const {
+    if (isPoint() || other.isPoint())
+        throw std::invalid_argument("Dot product with points is not defined.");
+
+    return x*other.x + y*other.y + z*other.z;
+}
+
+Tuple Tuple::cross(const Tuple &other) const {
+    if (isPoint() || other.isPoint())
+        throw std::invalid_argument("Cross product with points is not defined.");
+    
+    return Vector(
+        y*other.z - z*other.y,
+        z*other.x - x*other.z,
+        x*other.y - y*other.x
+    );
 }

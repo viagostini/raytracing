@@ -15,10 +15,14 @@ struct Tuple {
     Tuple operator-(const Tuple &other);
     bool operator==(const Tuple &other) const;
 
-    bool isPoint();
-    bool isVector();
-    float magnitude();
-    Tuple normalize();
+    bool isPoint() const;
+    bool isVector() const;
+    float magnitude() const;
+    void normalize();
+    Tuple normalized() const;
+    float dot(const Tuple &other) const;
+    Tuple cross(const Tuple &other) const;
+
 };
 
 Tuple operator*(float scalar, const Tuple &a);

@@ -66,7 +66,7 @@ TEST(Tuple, addVectorVector) {
     EXPECT_EQ(result, expected);
 }
 
-TEST(Tuple, addPointPoint) {
+TEST(Tuple, addPointPointThrows) {
     Tuple point = Point(3, -2, 5);
     Tuple other_point = Point(-2, 3, 1);
     EXPECT_THROW(point + other_point, std::invalid_argument);
@@ -135,7 +135,7 @@ TEST(Tuple, scalarDivFraction) {
     Tuple expected = Tuple(2, -4, -6, 1);
 }
 
-TEST(Tuple, scalarDivZero) {
+TEST(Tuple, scalarDivZeroThrows) {
     Tuple tuple = Tuple(1, -2, -3, 1);
 
     EXPECT_THROW(tuple / 0, std::overflow_error);
@@ -161,19 +161,57 @@ TEST(Tuple, magnitude) {
 TEST(Tuple, normalize) {
     Tuple vector = Vector(4, 0, 0);
 
-    Tuple result = vector.normalize();
+    vector.normalize();
     Tuple expected = Vector(1, 0, 0);
-    EXPECT_EQ(result, expected);
-    EXPECT_FLOAT_EQ(result.magnitude(), 1);
+    EXPECT_EQ(vector, expected);
+    EXPECT_FLOAT_EQ(vector.magnitude(), 1);
 
     vector = Vector(1, 2, 3);
-    result = vector.normalize();
+    Tuple result = vector.normalized();
     expected = Vector(1/sqrt14, 2/sqrt14, 3/sqrt14);
     EXPECT_EQ(result, expected);
     EXPECT_FLOAT_EQ(result.magnitude(), 1);
 }
 
-TEST(Tuple, normalizeZeroMagnitude) {
+TEST(Tuple, normalizeZeroMagnitudeThrows) {
     Tuple vector = Vector(0, 0, 0);
     ASSERT_THROW(vector.normalize(), std::overflow_error);
+}
+
+TEST(Tuple, dotProduct) {
+    Tuple vector = Vector(1, 2, 3);
+    Tuple other_vector = Vector(2, 3, 4);
+    ASSERT_FLOAT_EQ(vector.dot(other_vector), 20);
+}
+
+TEST(Tuple, dotProductWithPointsThrows) {
+    Tuple vector = Vector(1, 2, 3);
+    Tuple point = Point(2, 3, 4);
+    ASSERT_THROW(vector.dot(point), std::invalid_argument);
+
+    point = Point(1, 2, 3);
+    vector = Vector(1, 2, 3);
+    ASSERT_THROW(point.dot(vector), std::invalid_argument);
+}
+
+TEST(Tuple, crossProduct) {
+    Tuple vector = Vector(1, 2, 3);
+    Tuple other_vector = Vector(2, 3, 4);
+    
+    Tuple result = vector.cross(other_vector);
+    Tuple expected = Vector(-1, 2, -1);
+    EXPECT_EQ(result, expected);
+
+    result = other_vector.cross(vector);
+    EXPECT_EQ(result, -expected);
+}
+
+TEST(Tuple, crossProductWithPointsThrows) {
+    Tuple vector = Vector(1, 2, 3);
+    Tuple point = Point(2, 3, 4);
+    ASSERT_THROW(vector.cross(point), std::invalid_argument);
+
+    point = Point(1, 2, 3);
+    vector = Vector(1, 2, 3);
+    ASSERT_THROW(point.cross(vector), std::invalid_argument);
 }
