@@ -97,9 +97,9 @@ TEST(Tuple, subtractVectorVector) {
 }
 
 TEST(Tuple, negateTuple) {
-    Tuple tuple = Tuple(1, -2, 3, -4);
+    Tuple tuple = Tuple(1, -2, 3, 1);
 
     Tuple result = -tuple;
-    Tuple expected = Tuple(-1, 2, -3, 4);
+    Tuple expected = Tuple(-1, 2, -3, 1);
     EXPECT_EQ(result, expected);
 }

@@ -29,21 +29,19 @@ bool Tuple::operator==(const Tuple &other) const {
         && almost_equal(w, other.w);
 }
 
-#define BROADCAST_OPERATOR(a, b, op) { a.x op b.x, a.y op b.y, a.z op b.z, a.w op b.w }
 Tuple operator+(const Tuple& a, const Tuple &b) {
     if (almost_equal(a.w + b.w, 2))
         throw std::invalid_argument("Adding two points is not supported.");
-    return BROADCAST_OPERATOR(a, b, +);
+    return { a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w };
 }
 
 Tuple operator-(const Tuple& a, const Tuple &b) {
     if (a.w - b.w < 0)
         throw std::invalid_argument("Subtracting point from vector is not supported.");
-    return BROADCAST_OPERATOR(a, b, -);
+    return { a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w };
 }
-#undef BROADCAST_OPERATOR
 
 Tuple operator-(const Tuple &a) {
-    return { -a.x, -a.y, -a.z, -a.w };
+    return { -a.x, -a.y, -a.z, a.w };
 }
 
