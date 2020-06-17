@@ -43,14 +43,19 @@ Tuple Tuple::operator*(float scalar) {
     return { x * scalar, y * scalar, z * scalar, w };
 }
 
-bool Tuple::operator==(const Tuple &other) const {
-    return almost_equal(x, other.x)
-        && almost_equal(y, other.y)
-        && almost_equal(z, other.z)
-        && almost_equal(w, other.w);
+Tuple Tuple::operator/(float scalar) {
+    if (almost_equal(scalar, 0))
+        throw std::overflow_error("Division by zero.");
+    return { x / scalar, y / scalar, z / scalar, w };
 }
 
 Tuple operator*(float scalar, const Tuple &a) {
     return { a.x * scalar, a.y * scalar, a.z * scalar, a.w };
 }
 
+bool Tuple::operator==(const Tuple &other) const {
+    return almost_equal(x, other.x)
+        && almost_equal(y, other.y)
+        && almost_equal(z, other.z)
+        && almost_equal(w, other.w);
+}

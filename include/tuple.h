@@ -10,6 +10,7 @@ struct Tuple {
 
     Tuple operator-();
     Tuple operator*(float scalar);
+    Tuple operator/(float scalar);
     Tuple operator+(const Tuple &other);
     Tuple operator-(const Tuple &other);
     bool operator==(const Tuple &other) const;

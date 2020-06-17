@@ -117,3 +117,23 @@ TEST(Tuple, scalarMultFraction) {
     Tuple result = tuple * 0.5;
     Tuple expected = Tuple(0.5, -1, -1.5, 1);
 }
+
+TEST(Tuple, scalarDiv) {
+    Tuple tuple = Tuple(1, -2, -3, 1);
+
+    Tuple result = tuple / 2;
+    Tuple expected = Tuple(0.5, -1, -1.5, 1);
+}
+
+TEST(Tuple, scalarDivFraction) {
+    Tuple tuple = Tuple(1, -2, -3, 1);
+
+    Tuple result = tuple / 0.5;
+    Tuple expected = Tuple(2, -4, -6, 1);
+}
+
+TEST(Tuple, scalarDivZero) {
+    Tuple tuple = Tuple(1, -2, -3, 1);
+
+    EXPECT_THROW(tuple / 0, std::overflow_error);
+}
