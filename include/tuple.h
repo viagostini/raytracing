@@ -14,5 +14,9 @@ struct Tuple {
     bool isVector();
 };
 
+Tuple operator+(const Tuple& a, const Tuple &b);
+Tuple operator-(const Tuple& a, const Tuple &b);
+Tuple operator-(const Tuple& a);
+
 Tuple Point(float x, float y, float z);
 Tuple Vector(float x, float y, float z);
