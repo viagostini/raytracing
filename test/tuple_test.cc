@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 
+#include <cmath>
 #include <stdexcept>
 
 #include "tuple.h"
@@ -136,4 +137,21 @@ TEST(Tuple, scalarDivZero) {
     Tuple tuple = Tuple(1, -2, -3, 1);
 
     EXPECT_THROW(tuple / 0, std::overflow_error);
+}
+
+TEST(Tuple, magnitude) {
+    Tuple vector = Vector(1, 0, 0);
+    EXPECT_FLOAT_EQ(vector.magnitude(), 1);
+
+    vector = Vector(0, 1, 0);
+    EXPECT_FLOAT_EQ(vector.magnitude(), 1);
+
+    vector = Vector(0, 0, 1);
+    EXPECT_FLOAT_EQ(vector.magnitude(), 1);
+
+    vector = Vector(1, 2, 3);
+    EXPECT_FLOAT_EQ(vector.magnitude(), sqrt(14));
+
+    vector = Vector(-1, -2, -3);
+    EXPECT_FLOAT_EQ(vector.magnitude(), sqrt(14));
 }

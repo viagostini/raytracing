@@ -1,4 +1,6 @@
+#include <cmath>
 #include <stdexcept>
+
 #include "tuple.h"
 #include "utils.h"
 
@@ -58,4 +60,9 @@ bool Tuple::operator==(const Tuple &other) const {
         && almost_equal(y, other.y)
         && almost_equal(z, other.z)
         && almost_equal(w, other.w);
+}
+
+float Tuple::magnitude() {
+    // TODO: possible optimization later on: use squared length for comparisons
+    return sqrt(x*x + y*y + z*z);
 }

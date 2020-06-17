@@ -17,6 +17,7 @@ struct Tuple {
 
     bool isPoint();
     bool isVector();
+    float magnitude();
 };
 
 Tuple operator*(float scalar, const Tuple &a);
