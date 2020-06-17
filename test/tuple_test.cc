@@ -103,3 +103,17 @@ TEST(Tuple, negateTuple) {
     Tuple expected = Tuple(-1, 2, -3, 1);
     EXPECT_EQ(result, expected);
 }
+
+TEST(Tuple, scalarMult) {
+    Tuple tuple = Tuple(1, -2, -3, 1);
+
+    Tuple result = 2.0 * tuple;
+    Tuple expected = Tuple(2, -4, -6, 1);
+}
+
+TEST(Tuple, scalarMultFraction) {
+    Tuple tuple = Tuple(1, -2, -3, 1);
+
+    Tuple result = tuple * 0.5;
+    Tuple expected = Tuple(0.5, -1, -1.5, 1);
+}

@@ -22,6 +22,27 @@ bool Tuple::isVector() {
     return almost_equal(w, 0.0);
 }
 
+Tuple Tuple::operator-() {
+    return { -x, -y, -z, w };
+}
+
+
+Tuple Tuple::operator+(const Tuple &b) {
+    if (almost_equal(w + b.w, 2))
+        throw std::invalid_argument("Adding two points is not supported.");
+    return { x + b.x, y + b.y, z + b.z, w + b.w };
+}
+
+Tuple Tuple::operator-(const Tuple &b) {
+    if (w - b.w < 0)
+        throw std::invalid_argument("Subtracting point from vector is not supported.");
+    return { x - b.x, y - b.y, z - b.z, w - b.w };
+}
+
+Tuple Tuple::operator*(float scalar) {
+    return { x * scalar, y * scalar, z * scalar, w };
+}
+
 bool Tuple::operator==(const Tuple &other) const {
     return almost_equal(x, other.x)
         && almost_equal(y, other.y)
@@ -29,19 +50,7 @@ bool Tuple::operator==(const Tuple &other) const {
         && almost_equal(w, other.w);
 }
 
-Tuple operator+(const Tuple& a, const Tuple &b) {
-    if (almost_equal(a.w + b.w, 2))
-        throw std::invalid_argument("Adding two points is not supported.");
-    return { a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w };
-}
-
-Tuple operator-(const Tuple& a, const Tuple &b) {
-    if (a.w - b.w < 0)
-        throw std::invalid_argument("Subtracting point from vector is not supported.");
-    return { a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w };
-}
-
-Tuple operator-(const Tuple &a) {
-    return { -a.x, -a.y, -a.z, a.w };
+Tuple operator*(float scalar, const Tuple &a) {
+    return { a.x * scalar, a.y * scalar, a.z * scalar, a.w };
 }
 
