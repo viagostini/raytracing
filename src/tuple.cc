@@ -66,3 +66,12 @@ float Tuple::magnitude() {
     // TODO: possible optimization later on: use squared length for comparisons
     return sqrt(x*x + y*y + z*z);
 }
+
+Tuple Tuple::normalize() {
+    float mag = magnitude();
+
+    if (almost_equal(mag, 0))
+        throw std::overflow_error("Normalizing vector with magnitude zero causes division by zero.");
+
+    return { x / mag, y / mag, z / mag, w };
+}

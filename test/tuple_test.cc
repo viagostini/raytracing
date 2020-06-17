@@ -5,6 +5,8 @@
 
 #include "tuple.h"
 
+const float sqrt14 = sqrt(14);
+
 TEST(Tuple, defaultTuple) {
     Tuple tuple;
     EXPECT_FLOAT_EQ(tuple.x, 0.0);
@@ -150,8 +152,28 @@ TEST(Tuple, magnitude) {
     EXPECT_FLOAT_EQ(vector.magnitude(), 1);
 
     vector = Vector(1, 2, 3);
-    EXPECT_FLOAT_EQ(vector.magnitude(), sqrt(14));
+    EXPECT_FLOAT_EQ(vector.magnitude(), sqrt14);
 
     vector = Vector(-1, -2, -3);
-    EXPECT_FLOAT_EQ(vector.magnitude(), sqrt(14));
+    EXPECT_FLOAT_EQ(vector.magnitude(), sqrt14);
+}
+
+TEST(Tuple, normalize) {
+    Tuple vector = Vector(4, 0, 0);
+
+    Tuple result = vector.normalize();
+    Tuple expected = Vector(1, 0, 0);
+    EXPECT_EQ(result, expected);
+    EXPECT_FLOAT_EQ(result.magnitude(), 1);
+
+    vector = Vector(1, 2, 3);
+    result = vector.normalize();
+    expected = Vector(1/sqrt14, 2/sqrt14, 3/sqrt14);
+    EXPECT_EQ(result, expected);
+    EXPECT_FLOAT_EQ(result.magnitude(), 1);
+}
+
+TEST(Tuple, normalizeZeroMagnitude) {
+    Tuple vector = Vector(0, 0, 0);
+    ASSERT_THROW(vector.normalize(), std::overflow_error);
 }
