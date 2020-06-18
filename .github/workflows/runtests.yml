@@ -15,4 +15,4 @@ jobs:
     - name: build
       run: cmake --build build
     - name: test
-      run: cd build && ./test
+      run: cd build && ./test/raytracing_tests
