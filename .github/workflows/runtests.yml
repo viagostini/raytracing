@@ -13,4 +13,4 @@ jobs:
     - name: Build
       run: cmake --build build --target all -v
     - name: Test
-      run: ./test
+      run: ./build/test
