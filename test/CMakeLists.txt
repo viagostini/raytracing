@@ -2,7 +2,9 @@ set(BINARY ${CMAKE_PROJECT_NAME}_tests)
 
 # file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false *.h *.cc)
 
-set(TEST_SOURCES main.cc tuple_test.cc)
+set(TEST_SOURCES main.cc 
+                 tuple_test.cc
+                 color_test.cc)
 
 add_executable(${BINARY} ${TEST_SOURCES})
 
