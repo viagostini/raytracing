@@ -18,6 +18,9 @@ struct Color {
     Color operator+(const Color &other);
     Color operator-(const Color &other);
     bool operator==(const Color &other) const;
+
+    static Color BLACK() { return Color(0, 0, 0); }
+    static Color WHITE() { return Color(255, 255, 255); }
 };
 
 Color operator*(float a, const Color &other);
