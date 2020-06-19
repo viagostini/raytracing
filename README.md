@@ -1,3 +1,4 @@
+![build](https://github.com/viagostini/raytracing/workflows/build/badge.svg)
 ![tests](https://github.com/viagostini/raytracing/workflows/tests/badge.svg)
 -----
 
